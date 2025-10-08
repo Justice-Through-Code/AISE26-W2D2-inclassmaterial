@@ -48,7 +48,9 @@ Example output for generator-based moving average filter, assuming the data stre
 import csv
    
 def moving_average(stream, window_size):
-    pass  # your code here!
+    # Doesn't do anything yet...
+    for value in stream:
+        yield value  
 
 
 # Generator which filters out the Volume column from a CSV DictReader
