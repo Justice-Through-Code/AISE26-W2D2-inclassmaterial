@@ -56,11 +56,17 @@ def get_volume(dictreader):
     for row in dictreader:
         yield int(row['Volume'])
 
-
-with open('files/stocks/AAPL.csv', 'r') as f:  # Adjust to the location of your file
+with open('data/AAPL.csv', 'r') as f:
     unfiltered_volume = get_volume(csv.DictReader(f))
     for i, v in enumerate(unfiltered_volume):
-        print(f'{v} shares')
-        if i > 15:
+        print(f'Unfiltered: {v} shares')
+        if i > 20:
+            break
+
+with open('data/AAPL.csv', 'r') as f:
+    filtered_volume = moving_average(get_volume(csv.DictReader(f)), window_size=3)
+    for i, v in enumerate(filtered_volume):
+        print(f'Filtered: {v} shares')
+        if i > 20:
             break
 ```
