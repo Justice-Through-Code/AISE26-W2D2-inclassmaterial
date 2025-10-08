@@ -48,7 +48,9 @@ Example output for generator-based moving average filter, assuming the data stre
 import csv
    
 def moving_average(stream, window_size):
-    pass  # your code here!
+    # Doesn't do anything yet...
+    for value in stream:
+        yield value  
 
 
 # Generator which filters out the Volume column from a CSV DictReader
@@ -56,12 +58,17 @@ def get_volume(dictreader):
     for row in dictreader:
         yield int(row['Volume'])
 
-
-with open('files/stocks/AAPL.csv', 'r') as f:  # Adjust to the location of your file
-    # reader = csv.DictReader(f)
+with open('data/AAPL.csv', 'r') as f:
     unfiltered_volume = get_volume(csv.DictReader(f))
     for i, v in enumerate(unfiltered_volume):
-        print(f'{v} shares')
-        if i > 15:
+        print(f'Unfiltered: {v} shares')
+        if i > 20:
+            break
+
+with open('data/AAPL.csv', 'r') as f:
+    filtered_volume = moving_average(get_volume(csv.DictReader(f)), window_size=3)
+    for i, v in enumerate(filtered_volume):
+        print(f'Filtered: {v} shares')
+        if i > 20:
             break
 ```
