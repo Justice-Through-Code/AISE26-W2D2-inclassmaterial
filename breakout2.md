@@ -58,7 +58,6 @@ def get_volume(dictreader):
 
 
 with open('files/stocks/AAPL.csv', 'r') as f:  # Adjust to the location of your file
-    # reader = csv.DictReader(f)
     unfiltered_volume = get_volume(csv.DictReader(f))
     for i, v in enumerate(unfiltered_volume):
         print(f'{v} shares')
